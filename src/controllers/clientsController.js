@@ -1,3 +1,28 @@
+const Client = require('../models/Client')
+
+const addClient = async (req,res) => {
+  
+  try {
+    let payload = req.body
+    // let querys = req.query
+    
+    console.log(payload)
+    // console.log(querys)
+    
+    let newClient = await Client.create(payload)
+    
+    res.status(201).json(
+      {
+        "Message": "New client added to the database",
+        "Client": newClient
+      }
+      )
+  }
+  catch(err){
+    res.status(500).json({message: err})
+  }
+}
+
 const getClient = (req,res) => {
 
   const {id} = req.params
@@ -25,19 +50,14 @@ const getClient = (req,res) => {
   }
 }
 
-const getClients = (req,res) => {
-  res.json({clients: [
-    {
-    name: 'John',
-    lastName: 'Johnson',
-    age: '16'
-    },
-    {
-    name: 'Peter',
-    lastName: 'Johnson',
-    age: '18'
-    }
-  ]})
+const getClients = async (req,res) => {
+  try {
+    let clients = await Client.find()
+    res.status(200).json(clients)
+  }
+  catch(err){
+    res.status(500).json({message: err})
+  }
 }
 
-module.exports = { getClient, getClients }
+module.exports = { addClient, getClient, getClients }
