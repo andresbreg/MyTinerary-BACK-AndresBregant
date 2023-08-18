@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const { getClients, getClient, addClient, editClient, deleteClient } = require('../controllers/clientsController')
+const { getCities, getCity, addCity, editCity, deleteCity } = require('../controllers/citiesController')
 
-router.get('/clients', getClients)
-router.get('/client/:id', getClient)
-router.post('/client', addClient)
-router.put('/client/:id', editClient)
-router.delete('/client', deleteClient)
+router.get('/cities', getCities)
+router.get('/city/:id', getCity)
+router.post('/city', addCity)
+router.put('/city/:id', editCity)
+router.delete('/city', deleteCity)
 
 module.exports = router
