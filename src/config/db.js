@@ -1,5 +1,5 @@
 const {connect} = require('mongoose')
-require('dotenv').config({path:'./.env'})
+require('dotenv').config()
 
 const URI = process.env.MONGO_DB
 
