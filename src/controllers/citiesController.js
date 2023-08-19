@@ -5,8 +5,8 @@ const getCities = async (req,res) => {
     let cities = await City.find()
     res.status(200).json(cities)
   }
-  catch(err){
-    res.status(500).json({message: err})
+  catch(error){
+    res.status(500).json({message: error})
   }
 }
 
@@ -16,8 +16,8 @@ const getCity = async (req,res) => {
     let city = await City.findOne({_id: id})
     res.status(200).json(city)  
   }
-  catch(err) {
-    res.status(500).json({message: err})
+  catch(error) {
+    res.status(500).json({message: error})
   }
 }
 
@@ -32,8 +32,8 @@ const addCity = async (req,res) => {
       }
     )
   }
-  catch(err) {
-    res.status(500).json({message: err})
+  catch(error) {
+    res.status(500).json({message: error})
   }
 }
 
@@ -49,8 +49,8 @@ const editCity = async (req,res) => {
       }
     )
   }
-  catch(err) {
-    res.status(500).json({message: err})
+  catch(error) {
+    res.status(500).json({message: error})
   }
 }
 
@@ -66,8 +66,8 @@ const deleteCity = async (req,res) => {
       }
     )
   }
-  catch(err) {
-    res.status(500).json({message: err})
+  catch(error) {
+    res.status(500).json({message: error})
   }  
 }
 
