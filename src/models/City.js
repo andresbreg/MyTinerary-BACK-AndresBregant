@@ -5,7 +5,8 @@ const citySchema = new Schema ({
   country: { type:String, required:true },
   continent: { type:String, required:true },
   photo: { type:String, required:true },
-  summary: { type:String, required:true }
+  summary: { type:String, required:true },
+  _itineraries: [{ type:Types.ObjectId, ref:'Itinerary' }]
 })
 
 const City = model('City', citySchema)
