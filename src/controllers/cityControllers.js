@@ -2,10 +2,10 @@ const City = require('../models/City')
 
 const getCities = async (req,res) => {
   try {
-    let cities = await City.find()
+    let cities = await City.find().populate('_itineraries')
     res.status(200).json(cities)
   }
-  catch(error){
+  catch (error){
     res.status(500).json({message: error})
   }
 }
@@ -13,10 +13,22 @@ const getCities = async (req,res) => {
 const getCity = async (req,res) => {
   try {
     let {id} = req.params
-    let city = await City.findOne({_id: id})
-    res.status(200).json(city)  
+    let city = await City.findOne({_id: id}).populate('_itineraries')
+    res.status(200).json(city)
   }
-  catch(error) {
+  catch (error) {
+    res.status(500).json({message: error})
+  }
+}
+
+const getCityItineraries = async (req,res) => {
+  try {
+    let {id} = req.params
+    let city = await City.findOne({_id: id}).populate('_itineraries')
+    let itineraries = city._itineraries
+    res.status(200).json(itineraries)
+  }
+  catch (error) {
     res.status(500).json({message: error})
   }
 }
@@ -32,7 +44,7 @@ const addCity = async (req,res) => {
       }
     )
   }
-  catch(error) {
+  catch (error) {
     res.status(500).json({message: error})
   }
 }
@@ -41,15 +53,15 @@ const editCity = async (req,res) => {
   try {
     let {id} = req.params
     let payload = req.body
-    let cityUpdate = await City.findOneAndUpdate({_id: id}, payload)    
+    let cityUpdate = await City.findOneAndUpdate({_id: id}, payload, {new:true})    
     res.status(200).json(
       {
         "Message": "City updated", 
-        "City": req.body
+        "City": cityUpdate
       }
     )
   }
-  catch(error) {
+  catch (error) {
     res.status(500).json({message: error})
   }
 }
@@ -57,8 +69,7 @@ const editCity = async (req,res) => {
 const deleteCity = async (req,res) => {
   try {
     let {id} = req.query
-    let selectedCity = await City.findOne({_id: id})
-    let deletedCity = await City.deleteOne({_id: id})    
+    let selectedCity = await City.findOneAndDelete({_id: id})    
     res.status(201).json(
       {
         "Message": "The following city has been deleted from the database",
@@ -66,9 +77,9 @@ const deleteCity = async (req,res) => {
       }
     )
   }
-  catch(error) {
+  catch (error) {
     res.status(500).json({message: error})
   }  
 }
 
-module.exports = {getCities, getCity, addCity, editCity, deleteCity }
+module.exports = {getCities, getCity, getCityItineraries, addCity, editCity, deleteCity}

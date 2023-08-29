@@ -1,12 +1,13 @@
 const express = require('express')
 const filterCities = require('../controllers/filterController')
-const { getCities, getCity, addCity, editCity, deleteCity } = require('../controllers/cityControllers')
+const { getCities, getCity, getCityItineraries, addCity, editCity, deleteCity } = require('../controllers/cityControllers')
 const {getItineraries, getItinerary, addItinerary, editItinerary, deleteItinerary} = require('../controllers/itineraryControllers')
 
 const router = express.Router()
 
 router.get('/cities', getCities)
 router.get('/city/:id', getCity)
+router.get('/city/itineraries/:id', getCityItineraries)
 router.post('/city', addCity)
 router.put('/city/:id', editCity)
 router.delete('/city', deleteCity)
