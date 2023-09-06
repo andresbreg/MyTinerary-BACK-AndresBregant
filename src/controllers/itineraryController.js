@@ -7,7 +7,7 @@ const getItineraries = async (req,res) => {
     res.status(200).json(itineraries)
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }
 }
 
@@ -18,7 +18,7 @@ const getItinerary = async (req,res) => {
     res.status(200).json(itinerary)  
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }
 }
 
@@ -40,7 +40,7 @@ const addItinerary = async (req,res) => {
     )
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }
 }
 
@@ -77,7 +77,7 @@ const editItinerary = async (req,res) => {
     }    
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }
 }
 
@@ -97,7 +97,7 @@ const deleteItinerary = async (req,res) => {
     )
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }  
 }
 

@@ -6,7 +6,7 @@ const getCities = async (req,res) => {
     res.status(200).json(cities)
   }
   catch (error){
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }
 }
 
@@ -17,7 +17,7 @@ const getCity = async (req,res) => {
     res.status(200).json(city)
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }
 }
 
@@ -29,7 +29,7 @@ const getCityItineraries = async (req,res) => {
     res.status(200).json(itineraries)
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }
 }
 
@@ -45,7 +45,7 @@ const addCity = async (req,res) => {
     )
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }
 }
 
@@ -62,7 +62,7 @@ const editCity = async (req,res) => {
     )
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }
 }
 
@@ -78,7 +78,7 @@ const deleteCity = async (req,res) => {
     )
   }
   catch (error) {
-    res.status(500).json({message: error})
+    res.status(500).json({message: error.message})
   }  
 }
 

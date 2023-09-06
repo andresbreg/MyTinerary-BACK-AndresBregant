@@ -7,7 +7,7 @@ const filterCities = async (req,res) => {
     const cities = await City.find({ name: new RegExp('^' + startsWith, 'i') })
     res.json(cities);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching cities', error: error.message })
+    res.status(500).json({message: error.message})
   }
 }
 
