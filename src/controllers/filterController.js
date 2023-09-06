@@ -11,4 +11,4 @@ const filterCities = async (req,res) => {
   }
 }
 
-module.exports = filterCities
+module.exports = {filterCities}
