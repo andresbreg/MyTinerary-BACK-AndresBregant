@@ -1,10 +1,11 @@
 const express = require('express')
-const {verifyAuthData} = require('../middlewares/user')
-const {hashPassword} = require('../middlewares/auth')
-const {registerUser} = require('../controllers/authController')
+const {verifyRegistrationData, verifyLoginData} = require('../middlewares/user')
+const {hashPassword} = require('../middlewares/password')
+const {registerUser, login} = require('../controllers/authController')
 
 const authRouter = express.Router()
 
-authRouter.post('/register', verifyAuthData, hashPassword, registerUser)
+authRouter.post('/register', verifyRegistrationData, hashPassword, registerUser)
+authRouter.post('/login', verifyLoginData, login)
 
 module.exports = authRouter

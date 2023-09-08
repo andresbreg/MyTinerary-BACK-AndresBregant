@@ -12,4 +12,9 @@ const hashPassword = (req,res,next) => {
   }
 }
 
-module.exports = {hashPassword}
+const verifyPassword = (password, hashPassword) => {
+  const validPassword = bcrypt.compareSync(password, hashPassword)
+  return validPassword
+}
+
+module.exports = {hashPassword, verifyPassword}
