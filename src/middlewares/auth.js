@@ -1,6 +1,8 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const passport = require('passport')
+const {Strategy, ExtractJwt} = require('passport-jwt')
 
 const hashPassword = (req,res,next) => {
   try {
@@ -35,7 +37,7 @@ const verifyPassword = (req,res,next) => {
 const generateToken = (req,res,next) => {
   try {
     let secretKey = 'secretKey'
-    let token = jwt.sign({email: req.body.email}, secretKey, {expiresIn: 60*3})
+    let token = jwt.sign({email: req.user.email}, secretKey, {expiresIn: 60*3})
     req.token = token
     next()
   }
@@ -44,4 +46,20 @@ const generateToken = (req,res,next) => {
   }
 }
 
-module.exports = {hashPassword, verifyUser, verifyPassword, generateToken}
+const verifyPassport = passport.use(
+  new Strategy({
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: 'secretKey'
+  }, async (payload, done) => {
+    try {
+      let userFound = await User.findOne({email: payload.email})
+      if (userFound) return done(null, userFound)
+      else return done(null)
+    }
+    catch (error) {
+      return done(error)
+    }
+  })
+)
+
+module.exports = {hashPassword, verifyUser, verifyPassword, generateToken, verifyPassport}
