@@ -50,4 +50,20 @@ const auth = async (req,res) => {
   }
 }
 
-module.exports = {registerUser, login, auth}
+const logout = async (req,res) => {
+  try {    
+    res.status(200).json({
+      message: 'User successfully logged out',
+      token: req.token,
+      user: {
+        email: req.user.email,
+        id: req.user._id
+      }
+    })      
+  }
+  catch (error) {
+    res.status(500).json({message: error.message})
+  }
+}
+
+module.exports = {registerUser, login, auth, logout}

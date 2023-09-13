@@ -11,13 +11,6 @@ const registerUserSchema = Joi.object({
     'string.min': 'The last name must be at least 2 characters.',
     'string.max': 'The last name must be at most 24 characters.'
   }),
-  photo: Joi.string().uri().min(8).messages({
-    'string.uri': 'Please, enter a valid location.',
-    'string.min': 'The photo location must be at least 8 characters.'
-  }),
-  country: Joi.string().required().messages({
-    'string.empty': 'Please, select your country.',
-  }),
   email: Joi.string().email().min(8).max(48).required().messages({
     'string.empty': 'Please, enter your email.',
     'string.email': 'Please, enter a valid email.',
@@ -29,6 +22,13 @@ const registerUserSchema = Joi.object({
     'string.alphanum': 'Please, enter a valid password.',
     'string.min': 'The password must be at least 8 characters.',
     'string.max': 'The password must be at most 24 characters.'
+  }),
+  picture: Joi.string().uri().min(8).messages({
+    'string.uri': 'Please, enter a valid URI.',
+    'string.min': 'The picture location must be at least 8 characters.'
+  }),
+  country: Joi.string().required().messages({
+    'string.empty': 'Please, select your country.',
   })
 })
 
@@ -49,7 +49,7 @@ const loginUserSchema = Joi.object({
 
 const verifyRegistrationData = (req,res,next) => {
   const payload = req.body
-  const validatedUser = registerUserSchema.validate(payload)
+  const validatedUser = registerUserSchema.validate(payload, {abortEarly:false})
   if (validatedUser.error) {
     return res.status(400).json({
       messages: validatedUser.error.details.map(
