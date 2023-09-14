@@ -23,8 +23,9 @@ const registerUserSchema = Joi.object({
     'string.min': 'The password must be at least 8 characters.',
     'string.max': 'The password must be at most 24 characters.'
   }),
-  picture: Joi.string().uri().min(8).messages({
-    'string.uri': 'Please, enter a valid URI.',
+  picture: Joi.string().uri().min(8).required().messages({
+    'string.empty': 'Please, enter the link to your picture.',
+    'string.uri': 'Please, enter a valid link.',
     'string.min': 'The picture location must be at least 8 characters.'
   }),
   country: Joi.string().required().messages({
